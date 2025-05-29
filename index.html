@@ -2,115 +2,68 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Special OPS Series</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Special OPS & 1.5</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to bottom, #0f172a, #1e293b);
+      color: white;
+    }
+  </style>
 </head>
-<body class="bg-gray-900 text-white font-sans">
+<body>
+  <header class="w-full h-64 bg-cover bg-center flex items-center justify-center" style="background-image: url('https://img10.hotstar.com/image/upload/f_auto/sources/r1/cms/prod/4137/654137-h');">
+    <h1 class="text-3xl md:text-5xl font-bold bg-black bg-opacity-60 px-6 py-2 rounded">Special OPS Series</h1>
+  </header>
 
-  <div class="p-4 text-center bg-gray-800 shadow-md">
-    <h1 class="text-3xl font-bold">Special <span class="text-red-500">OPS</span> Universe</h1>
-    <p class="text-sm text-gray-400">Watch all episodes of Season 1 and Special OPS 1.5</p>
-  </div>
-
-  <div class="flex justify-center mt-6 space-x-4">
-    <button class="tab-btn bg-red-600 text-white px-4 py-2 rounded active" data-target="season1">Season 1</button>
-    <button class="tab-btn bg-gray-700 text-white px-4 py-2 rounded" data-target="season1.5">Season 1.5</button>
-  </div>
-
-  <div id="season1" class="episode-container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4 mt-4">
-    <!-- Season 1 episodes inserted here -->
-  </div>
-
-  <div id="season1.5" class="episode-container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4 mt-4 hidden">
-    <!-- Season 1.5 episodes inserted here -->
-  </div>
-
-  <!-- Modal -->
-  <div id="video-modal" class="fixed inset-0 bg-black bg-opacity-90 hidden items-center justify-center z-50 p-4">
-    <div class="relative w-full max-w-3xl bg-gray-800 rounded-lg overflow-hidden">
-      <button class="absolute top-2 right-3 text-white text-xl" onclick="closeModal()">
-        <i class="fas fa-times"></i>
-      </button>
-      <div class="aspect-w-16 aspect-h-9">
-        <video id="modal-video" class="w-full h-full" controls autoplay></video>
-      </div>
-      <div class="p-4">
-        <h2 id="modal-title" class="text-xl font-bold"></h2>
-      </div>
+  <main class="container mx-auto px-4 py-8">
+    <div class="mb-4 flex gap-4">
+      <button onclick="loadSeason('season1')" class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded">Special OPS</button>
+      <button onclick="loadSeason('season1_5')" class="bg-green-600 hover:bg-green-700 px-4 py-2 rounded">OPS 1.5: Himmat Story</button>
     </div>
-  </div>
+    <div id="episode-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
+  </main>
 
   <script>
-    const seriesData = {
-      "season1": {
-        title: "Special OPS",
-        episodes: [
-          { title: "The Parliament Attack", video: "https://cdn30091.lop3sdi5dq5.com:443/stream2/i-cdn-0/a5b5ae66248be0039515bda55fa1d488/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT2p1VKlWTEJFaPR0a4pVbRd3TUVUMapmSt9EVrBzTUVkMZRFZt5EVJVjTtVUP:1748480434:89.116.30.152:ea28765810e8e062b8ea50e6fecd7c4525e685fb35b774c1281b08c2440cff3e/./1080/index.m3u8", image: "https://img10.hotstar.com/image/upload/f_auto/sources/r1/cms/prod/4137/654137-h" },
-          { title: "The Istanbul Connection", video: "https://cdn30091.lop3sdi5dq5.com:443/stream2/i-cdn-0/a5b5ae66248be0039515bda55fa1d488/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT2l1VFBzTEVVeNRkWq5kaK1mT6VUNNpmRt5kMJNjTUlVePR1ay80VZFTTEFVP:1748480586:89.116.30.152:729e84504625b527c1718ff59795d0561ba090d3a3ce874aea54399c281e0ff5/./1080/index.m3u8", image: "https://img10.hotstar.com/image/upload/f_auto/sources/r1/cms/prod/5428/655428-h" },
-          { title: "The Sleeper Cell", video: "https://cdn30091.lop3sdi5dq5.com:443/stream2/i-cdn-0/a5b5ae66248be0039515bda55fa1d488/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT25kajNTWtVFNZJTTw8EVRhXTyYFbadlStpFRBNTWqp1aNdURxk1VJVjWH1UP:1748480620:89.116.30.152:9fe981d72813ed75e71bce2e3f7c493751039d8298007ceab7b2351125fe3ea6/./1080/index.m3u8", image: "https://img10.hotstar.com/image/upload/f_auto/sources/r1/cms/prod/5429/655429-h" },
-          { title: "The Double Agent", video: "https://cdn30091.lop3sdi5dq5.com:443/stream2/i-cdn-0/a5b5ae66248be0039515bda55fa1d488/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT21keoxmWqNWNNJTW3lVbW1mTHVkeNdkUr90VKpmTX5kaZRVW4p1RRBjWqFVP:1748480652:89.116.30.152:a076d18c6fe472e93a50e0c73e07d1275292ab2532e898b1d43b2fafd2a95952/./1080/index.m3u8", image: "https://img10.hotstar.com/image/upload/f_auto/sources/r1/cms/prod/4143/654143-h" },
-          { title: "The Kashmir Link", video: "https://cdn30091.lop3sdi5dq5.com:443/stream2/i-cdn-0/a5b5ae66248be0039515bda55fa1d488/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT2lleVVjWH50aadlVr5ERFdnTqZFbadkWs50VO1WTX1UMZRlQsllaBVjWtlVP:1748480688:89.116.30.152:ff1af5c9d0958d581d698b211da6b1a04c87187acb26af5dc69afae6ccea7ed8/./1080/index.m3u8", image: "https://img10.hotstar.com/image/upload/f_auto/sources/r1/cms/prod/4147/654147-h" },
-          { title: "The Dubai Operation", video: "https://cdn30091.lop3sdi5dq5.com:443/stream2/i-cdn-0/a5b5ae66248be0039515bda55fa1d488/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT21keJNjTE1kMZR1Yz0UbZJTWUdGNadVU3p1VNFjWqVUNa1mWr9EVFBjWqVUP:1748480714:89.116.30.152:2b27320013dc4824928f01c317906fa817a565465850f10b424dfed8aedb5918/./1080/index.m3u8", image: "https://img10.hotstar.com/image/upload/f_auto/sources/r1/cms/prod/4149/654149-h" },
-          { title: "The Betrayal", video: "https://cdn30091.lop3sdi5dq5.com:443/stream2/i-cdn-0/a5b5ae66248be0039515bda55fa1d488/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT21UbJBTTH5EaNRFZpl1VJBjTt5EaOp3a5llaFFTTEJ0aO1mSt1ERFhnTqlUP:1748480738:89.116.30.152:0f9937a00a24af0dfd2b49f6b06f5428113ec737a12f9e3fe2108bab069d6296/./1080/index.m3u8", image: "https://img10.hotstar.com/image/upload/f_auto/sources/r1/cms/prod/4744/654744-h" },
-          { title: "The Final Showdown", video: "https://cdn30091.lop3sdi5dq5.com:443/stream2/i-cdn-0/a5b5ae66248be0039515bda55fa1d488/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT21EVstWW6VVNN1WU0kFVWtWWtVUMap2Yy0kektmTqJlaadlRs90VJpnTX1UP:1748480764:89.116.30.152:1c5dc1a83ac8022d6fb2e5aec67b3ffe2f9516f1db4fc29bb382e1d7482a9716/./1080/index.m3u8", image: "https://img10.hotstar.com/image/upload/f_auto/sources/r1/cms/prod/4885/654885-h" }
-        ]
-      },
-      "season1.5": {
-        title: "Special OPS 1.5: The Himmat Story",
-        episodes: [
-          { title: "Aandhi", video: "https://cdn30091.lop3sdi5dq5.com:443/stream2/i-cdn-0/a5b5ae66248be0039515bda55fa1d488/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT2llaCtWW61EMNRVWwolaJBjWXpVaPRVSz0kaBNjTXZEbaRlSo5ERatmWHFVP:1748481039:89.116.30.152:0908a40d383212377b7b4af7f667b0943d64113b668e5673a9b984d018e03f40/./1080/index.m3u8", image: "https://img10.hotstar.com/image/upload/f_auto/sources/r1/cms/prod/4654/1738651044654-h" },
-          { title: "Mere Apne", video: "https://cdn30091.lop3sdi5dq5.com:443/stream2/i-cdn-0/a5b5ae66248be0039515bda55fa1d488/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT25EVKxmWUpEbPRVR4pFVo1WWXpkaNdUSz0kenpnTXZVaPRUSz00ROlWTykVP:1748481065:89.116.30.152:26b4ae11bd4b3855ab0b9368c3eb6c0c142b7bd61a4590bbe512e4a8a8a34d9f/./1080/index.m3u8", image: "https://img10.hotstar.com/image/upload/f_auto/sources/r1/cms/prod/6173/1076173-h-df241cbf65d2" },
-          { title: "Lekin", video: "https://cdn30091.lop3sdi5dq5.com:443/stream2/i-cdn-0/a5b5ae66248be0039515bda55fa1d488/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT25ERJdXTt5UaOpXU59ERNRjT6JVbN1WUx80RGpWTEd2dadlSo5kaJRTTy0UP:1748481085:89.116.30.152:3f00164e98d3d36b5196557cef5254c2a89cc4db068e8cd17c06d76907fbbcba/./1080/index.m3u8", image: "https://img10.hotstar.com/image/upload/f_auto/sources/r1/cms/prod/6174/1076174-h-047a440bf244" },
-          { title: "Ijazat", video: "https://cdn30091.lop3sdi5dq5.com:443/stream2/i-cdn-0/a5b5ae66248be0039515bda55fa1d488/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT2plaZNTTHlUeZpnSqpFRnBjWqFUNZ1mUq90VFh3TUVVMORVS51kMJFjWXVUP:1748481106:89.116.30.152:bc41a70fd61c37505c20da12741870ecce38e40fadd4b93f2c069ac6936bc1c3/./1080/index.m3u8", image: "https://img10.hotstar.com/image/upload/f_auto/sources/r1/cms/prod/6175/1076175-h-7669d02df97a" }
-        ]
-      }
+    const episodes = {
+      season1: [
+        { title: "The Parliament Attack", video: "https://sskt.mazedukhkortfj.sbs:443/v4/ck/gn5w8/index-f2-v1-a1.txt", image: "https://img10.hotstar.com/image/upload/f_auto/sources/r1/cms/prod/4137/654137-h" },
+        { title: "The Istanbul Connection", video: "https://macdn.hakunaymatata.com/resource/d3f493124fb8e41dd83933475997072c.mp4?Expires=1749641780&Signature=VbzBE002HBrZxgO30fh6l3mjstETbwTyc68yj~UjkS3xLWOGJRyYd6WJ6UwoCwCFnV9FS3PL79XM2UJpx9WKoexX2uYBJ5AtZiD2RS9FO0yBYQDBNTSzHSaSsPOKhjbvIA78XdA~MGGcgQpR2x1YPX-VS4H3WBVa6~z7RNHlSyJYuOiKH6nicfN5cQaXckddiRiEwu6m0C7lVjkQPAmXvzo-UT1rhrpC~HCf1aEXpLWwkjFowHKVNv2D3ldrSPeZadCOCh9KZG-V~wSBScIPWAN32FODTbnQqoZZ6kD1MkvimvH-fW5wFYMg65ObrKkKJBHAUkb5j5OwIIjh3h03kw__&Key-Pair-Id=KMHN1LQ1HEUPL", image: "https://img10.hotstar.com/image/upload/f_auto/sources/r1/cms/prod/5428/655428-h" },
+        { title: "The Sleeper Cell", video: "https://cdn30091.lop3sdi5dq5.com:443/stream2/.../1080/index.m3u8", image: "https://img10.hotstar.com/image/upload/f_auto/sources/r1/cms/prod/5429/655429-h" },
+        { title: "The Double Agent", video: "https://cdn30091.lop3sdi5dq5.com:443/stream2/.../1080/index.m3u8", image: "https://img10.hotstar.com/image/upload/f_auto/sources/r1/cms/prod/4143/654143-h" },
+        { title: "The Kashmir Link", video: "https://cdn30091.lop3sdi5dq5.com:443/stream2/.../1080/index.m3u8", image: "https://img10.hotstar.com/image/upload/f_auto/sources/r1/cms/prod/4147/654147-h" },
+        { title: "The Dubai Operation", video: "https://cdn30091.lop3sdi5dq5.com:443/stream2/.../1080/index.m3u8", image: "https://img10.hotstar.com/image/upload/f_auto/sources/r1/cms/prod/4149/654149-h" },
+        { title: "The Betrayal", video: "https://cdn30091.lop3sdi5dq5.com:443/stream2/.../1080/index.m3u8", image: "https://img10.hotstar.com/image/upload/f_auto/sources/r1/cms/prod/4744/654744-h" },
+        { title: "The Final Showdown", video: "https://cdn30091.lop3sdi5dq5.com:443/stream2/.../1080/index.m3u8", image: "https://img10.hotstar.com/image/upload/f_auto/sources/r1/cms/prod/4885/654885-h" }
+      ],
+      season1_5: [
+        { title: "Aandhi", video: "https://cdn30091.lop3sdi5dq5.com:443/stream2/.../1080/index.m3u8", image: "https://img10.hotstar.com/image/upload/f_auto/sources/r1/cms/prod/4654/1738651044654-h" },
+        { title: "Mere Apne", video: "https://cdn30091.lop3sdi5dq5.com:443/stream2/.../1080/index.m3u8", image: "https://img10.hotstar.com/image/upload/f_auto/sources/r1/cms/prod/6173/1076173-h-df241cbf65d2" },
+        { title: "Lekin", video: "https://cdn30091.lop3sdi5dq5.com:443/stream2/.../1080/index.m3u8", image: "https://img10.hotstar.com/image/upload/f_auto/sources/r1/cms/prod/6174/1076174-h-047a440bf244" },
+        { title: "Ijazat", video: "https://cdn30091.lop3sdi5dq5.com:443/stream2/.../1080/index.m3u8", image: "https://img10.hotstar.com/image/upload/f_auto/sources/r1/cms/prod/6175/1076175-h-7669d02df97a" }
+      ]
     };
 
-    function renderEpisodes(seasonKey) {
-      const container = document.getElementById(seasonKey);
-      seriesData[seasonKey].episodes.forEach(ep => {
+    function loadSeason(season) {
+      const grid = document.getElementById('episode-grid');
+      grid.innerHTML = '';
+      episodes[season].forEach((ep, index) => {
         const card = document.createElement('div');
-        card.className = "bg-gray-800 rounded overflow-hidden shadow-lg cursor-pointer hover:shadow-xl transition";
+        card.className = 'bg-gray-800 rounded overflow-hidden shadow-md';
         card.innerHTML = `
           <img src="${ep.image}" alt="${ep.title}" class="w-full h-48 object-cover">
           <div class="p-4">
-            <h3 class="font-semibold">${ep.title}</h3>
+            <h2 class="text-lg font-semibold mb-2">${ep.title}</h2>
+            <button onclick="window.location.href='player.html?video=${encodeURIComponent(ep.video)}'" class="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">Watch</button>
           </div>
         `;
-        card.onclick = () => openModal(ep.video, ep.title);
-        container.appendChild(card);
+        grid.appendChild(card);
       });
     }
 
-    function openModal(videoUrl, title) {
-      document.getElementById('modal-video').src = videoUrl;
-      document.getElementById('modal-title').textContent = title;
-      document.getElementById('video-modal').classList.remove('hidden');
-    }
-
-    function closeModal() {
-      const modal = document.getElementById('video-modal');
-      const video = document.getElementById('modal-video');
-      modal.classList.add('hidden');
-      video.pause();
-      video.src = '';
-    }
-
-    // Tab switching
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active', 'bg-red-600'));
-        document.querySelectorAll('.episode-container').forEach(div => div.classList.add('hidden'));
-        btn.classList.add('active', 'bg-red-600');
-        document.getElementById(btn.dataset.target).classList.remove('hidden');
-      });
-    });
-
-    // Render both seasons on load
-    renderEpisodes('season1');
-    renderEpisodes('season1.5');
+    loadSeason('season1');
   </script>
 </body>
 </html>
