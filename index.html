@@ -26,11 +26,18 @@
     <div id="episode-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
   </main>
 
+  <div id="modal" class="hidden fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50">
+    <div class="bg-gray-800 p-4 rounded-lg w-full max-w-4xl relative">
+      <button onclick="closeModal()" class="absolute top-2 right-2 text-white text-xl">&times;</button>
+      <video id="modal-video" class="w-full rounded" controls></video>
+    </div>
+  </div>
+
   <script>
     const episodes = {
       season1: [
-        { title: "The Parliament Attack", video: "https://sskt.mazedukhkortfj.sbs:443/v4/ck/gn5w8/index-f2-v1-a1.txt", image: "https://img10.hotstar.com/image/upload/f_auto/sources/r1/cms/prod/4137/654137-h" },
-        { title: "The Istanbul Connection", video: "https://macdn.hakunaymatata.com/resource/d3f493124fb8e41dd83933475997072c.mp4?Expires=1749641780&Signature=VbzBE002HBrZxgO30fh6l3mjstETbwTyc68yj~UjkS3xLWOGJRyYd6WJ6UwoCwCFnV9FS3PL79XM2UJpx9WKoexX2uYBJ5AtZiD2RS9FO0yBYQDBNTSzHSaSsPOKhjbvIA78XdA~MGGcgQpR2x1YPX-VS4H3WBVa6~z7RNHlSyJYuOiKH6nicfN5cQaXckddiRiEwu6m0C7lVjkQPAmXvzo-UT1rhrpC~HCf1aEXpLWwkjFowHKVNv2D3ldrSPeZadCOCh9KZG-V~wSBScIPWAN32FODTbnQqoZZ6kD1MkvimvH-fW5wFYMg65ObrKkKJBHAUkb5j5OwIIjh3h03kw__&Key-Pair-Id=KMHN1LQ1HEUPL", image: "https://img10.hotstar.com/image/upload/f_auto/sources/r1/cms/prod/5428/655428-h" },
+        { title: "The Parliament Attack", video: "https://macdn.hakunaymatata.com/resource/d3f493124fb8e41dd83933475997072c.mp4?Expires=1749641780&Signature=VbzBE002HBrZxgO30fh6l3mjstETbwTyc68yj~UjkS3xLWOGJRyYd6WJ6UwoCwCFnV9FS3PL79XM2UJpx9WKoexX2uYBJ5AtZiD2RS9FO0yBYQDBNTSzHSaSsPOKhjbvIA78XdA~MGGcgQpR2x1YPX-VS4H3WBVa6~z7RNHlSyJYuOiKH6nicfN5cQaXckddiRiEwu6m0C7lVjkQPAmXvzo-UT1rhrpC~HCf1aEXpLWwkjFowHKVNv2D3ldrSPeZadCOCh9KZG-V~wSBScIPWAN32FODTbnQqoZZ6kD1MkvimvH-fW5wFYMg65ObrKkKJBHAUkb5j5OwIIjh3h03kw__&Key-Pair-Id=KMHN1LQ1HEUPL", image: "https://img10.hotstar.com/image/upload/f_auto/sources/r1/cms/prod/4137/654137-h" },
+        { title: "The Istanbul Connection", video: "https://sskt.mazedukhkortfj.sbs:443/v4/ck/gn5w8/index-f2-v1-a1.txt", image: "https://img10.hotstar.com/image/upload/f_auto/sources/r1/cms/prod/5428/655428-h" },
         { title: "The Sleeper Cell", video: "https://cdn30091.lop3sdi5dq5.com:443/stream2/.../1080/index.m3u8", image: "https://img10.hotstar.com/image/upload/f_auto/sources/r1/cms/prod/5429/655429-h" },
         { title: "The Double Agent", video: "https://cdn30091.lop3sdi5dq5.com:443/stream2/.../1080/index.m3u8", image: "https://img10.hotstar.com/image/upload/f_auto/sources/r1/cms/prod/4143/654143-h" },
         { title: "The Kashmir Link", video: "https://cdn30091.lop3sdi5dq5.com:443/stream2/.../1080/index.m3u8", image: "https://img10.hotstar.com/image/upload/f_auto/sources/r1/cms/prod/4147/654147-h" },
@@ -46,21 +53,42 @@
       ]
     };
 
+    function isStreamLink(url) {
+      return url.endsWith('.m3u8') || url.endsWith('.txt');
+    }
+
     function loadSeason(season) {
       const grid = document.getElementById('episode-grid');
       grid.innerHTML = '';
-      episodes[season].forEach((ep, index) => {
+      episodes[season].forEach((ep) => {
         const card = document.createElement('div');
         card.className = 'bg-gray-800 rounded overflow-hidden shadow-md';
         card.innerHTML = `
           <img src="${ep.image}" alt="${ep.title}" class="w-full h-48 object-cover">
           <div class="p-4">
             <h2 class="text-lg font-semibold mb-2">${ep.title}</h2>
-            <button onclick="window.location.href='player.html?video=${encodeURIComponent(ep.video)}'" class="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">Watch</button>
+            <button class="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">Watch</button>
           </div>
         `;
+        card.querySelector('button').onclick = () => {
+          if (isStreamLink(ep.video)) {
+            window.location.href = `player.html?video=${encodeURIComponent(ep.video)}`;
+          } else {
+            const video = document.getElementById('modal-video');
+            video.src = ep.video;
+            video.poster = ep.image;
+            document.getElementById('modal').classList.remove('hidden');
+          }
+        };
         grid.appendChild(card);
       });
+    }
+
+    function closeModal() {
+      const video = document.getElementById('modal-video');
+      video.pause();
+      video.src = '';
+      document.getElementById('modal').classList.add('hidden');
     }
 
     loadSeason('season1');
