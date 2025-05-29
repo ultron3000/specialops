@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Special OPS - Season 1 | Disney+ Hotstar Original Series</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Stream all episodes of Special OPS Season 1, the thrilling Indian espionage thriller series starring Kay Kay Menon.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to bottom, #000000, #1a1a2e);
+      min-height: 100vh;
+    }
+    .episode-card:hover .play-icon {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1.1);
+    }
+    .gradient-text {
+      background: linear-gradient(90deg, #f6d365 0%, #fda085 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .modal-enter {
+      animation: modalEnter 0.3s ease-out forwards;
+    }
+    @keyframes modalEnter {
+      from {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+    .showcase-header {
+      background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%), 
+                  url('https://img1.hotstarext.com/image/upload/f_auto,t_web_m_1x/sources/r1/cms/prod/5054/1375054-h-1d1f1c6d5e0d') no-repeat center center;
+      background-size: cover;
+      height: 70vh;
+      min-height: 500px;
+      display: flex;
+      flex-direction: column;
+    }
+    .video-container {
+      position: relative;
+      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      height: 0;
+      overflow: hidden;
+    }
+    .video-container video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    @media (max-width: 768px) {
+      .showcase-header {
+        height: 60vh;
+        min-height: 400px;
+      }
+      .modal-content {
+        width: 95%;
+        margin: 0 auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="showcase-header">
+    <header class="bg-gradient-to-b from-black to-transparent py-4 px-6">
+      <div class="container mx-auto flex justify-between items-center">
+        <div class="flex items-center space-x-2">
+          <div class="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center">
+            <i class="fas fa-play text-white"></i>
+          </div>
+          <h1 class="text-xl font-bold">Special<span class="text-red-600">OPS</span></h1>
+        </div>
+        <nav class="hidden md:flex space-x-6">
+          <a href="#" class="hover:text-red-400 transition">Home</a>
+          <a href="#" class="hover:text-red-400 transition">Episodes</a>
+          <a href="#" class="hover:text-red-400 transition">Characters</a>
+          <a href="#" class="hover:text-red-400 transition">Gallery</a>
+        </nav>
+        <button class="md:hidden text-2xl" id="mobile-menu-button">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+      <!-- Mobile menu -->
+      <div id="mobile-menu" class="hidden md:hidden bg-gray-900 mt-2 py-2 px-4 rounded-lg">
+        <a href="#" class="block py-2 hover:text-red-400 transition">Home</a>
+        <a href="#" class="block py-2 hover:text-red-400 transition">Episodes</a>
+        <a href="#" class="block py-2 hover:text-red-400 transition">Characters</a>
+        <a href="#" class="block py-2 hover:text-red-400 transition">Gallery</a>
+      </div>
+    </header>
+
+    <div class="container mx-auto px-4 flex-1 flex items-center">
+      <div class="max-w-4xl">
+        <h1 class="text-4xl md:text-6xl font-bold mb-4 gradient-text">Special OPS</h1>
+        <div class="flex items-center space-x-4 mb-6">
+          <span class="bg-red-600 text-white px-3 py-1 rounded-full text-sm font-semibold">Season 1</span>
+          <span class="text-gray-400">2020</span>
+          <span class="text-gray-400">•</span>
+          <span class="text-gray-400">8 Episodes</span>
+        </div>
+        <p class="text-lg text-gray-300 mb-6">
+          After the 2001 Parliament attack, RAW officer Himmat Singh becomes convinced that one mastermind is behind major attacks in India over two decades. He forms a secret team to track down the mysterious terrorist.
+        </p>
+        <div class="flex space-x-4">
+          <button class="bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-6 md:px-8 rounded-full flex items-center transition transform hover:scale-105">
+            <i class="fas fa-play mr-2"></i> Play All
+          </button>
+          <button class="bg-gray-800 hover:bg-gray-700 text-white font-semibold py-3 px-6 md:px-8 rounded-full flex items-center transition">
+            <i class="fas fa-plus mr-2"></i> My List
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main class="container mx-auto px-4 pb-16">
+    <h2 class="text-3xl font-bold mb-8 flex items-center">
+      <span class="mr-4">Episodes</span>
+      <span class="text-red-600 text-xl">Season 1</span>
+    </h2>
+    
+    <div id="episodes" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+  </main>
+
+  <!-- Modal -->
+  <div id="playback-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black bg-opacity-90 p-4">
+    <div class="relative w-full max-w-6xl bg-gray-900 rounded-xl overflow-hidden modal-enter">
+      <button id="close-modal" class="absolute top-4 right-4 z-50 text-white hover:text-red-500 text-2xl transition">
+        <i class="fas fa-times"></i>
+      </button>
+      <div class="video-container">
+        <video id="modal-video" class="w-full" controls>
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      <div class="p-6">
+        <div class="flex justify-between items-start mb-4">
+          <div>
+            <h3 id="modal-title" class="text-2xl font-bold mb-1"></h3>
+            <div class="text-gray-400 text-sm">
+              <span>S1 • E<span id="episode-num"></span></span> • <span id="episode-runtime"></span> • <span class="text-red-500">★ <span id="episode-rating"></span></span>
+            </div>
+          </div>
+          <div class="flex space-x-3">
+            <button class="text-gray-400 hover:text-white transition">
+              <i class="fas fa-share-alt"></i>
+            </button>
+            <button class="text-gray-400 hover:text-white transition">
+              <i class="fas fa-ellipsis-h"></i>
+            </button>
+          </div>
+        </div>
+        <p id="modal-description" class="text-gray-300 mb-6"></p>
+        <div class="flex flex-wrap gap-4">
+          <button id="play-button" class="bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-6 rounded-full flex items-center transition transform hover:scale-105">
+            <i class="fas fa-play mr-2"></i> Play
+          </button>
+          <button class="bg-gray-800 hover:bg-gray-700 text-white font-semibold py-3 px-6 rounded-full flex items-center transition">
+            <i class="fas fa-plus mr-2"></i> Watchlist
+          </button>
+          <button class="bg-gray-800 hover:bg-gray-700 text-white font-semibold py-3 px-4 rounded-full transition">
+            <i class="fas fa-thumbs-up"></i>
+          </button>
+        </div>
+        <div class="mt-6 pt-6 border-t border-gray-800">
+          <h4 class="text-sm font-semibold text-gray-400 mb-2">Starring</h4>
+          <p id="episode-cast" class="text-gray-300 text-sm">Kay Kay Menon, Karan Tacker, Aftab Shivdasani, Vinay Pathak, Vipul Gupta, Muzammil Ibrahim, Saiyami Kher</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="bg-gray-900 py-12">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="mb-6 md:mb-0">
+          <div class="flex items-center space-x-2 mb-4">
+            <div class="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center">
+              <i class="fas fa-play text-white"></i>
+            </div>
+            <h1 class="text-xl font-bold">Special<span class="text-red-600">OPS</span></h1>
+          </div>
+          <p class="text-gray-400 text-sm">© 2020 Disney+ Hotstar Original Series</p>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div>
+            <h3 class="text-gray-300 font-semibold mb-3">Navigation</h3>
+            <ul class="space-y-2">
+              <li><a href="#" class="text-gray-400 hover:text-red-400 text-sm transition">Home</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-red-400 text-sm transition">Episodes</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-red-400 text-sm transition">Characters</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-red-400 text-sm transition">Gallery</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-gray-300 font-semibold mb-3">Legal</h3>
+            <ul class="space-y-2">
+              <li><a href="#" class="text-gray-400 hover:text-red-400 text-sm transition">Terms</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-red-400 text-sm transition">Privacy</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-red-400 text-sm transition">Cookies</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-gray-300 font-semibold mb-3">Social</h3>
+            <div class="flex space-x-4">
+              <a href="#" class="text-gray-400 hover:text-red-400 transition"><i class="fab fa-twitter"></i></a>
+              <a href="#" class="text-gray-400 hover:text-red-400 transition"><i class="fab fa-instagram"></i></a>
+              <a href="#" class="text-gray-400 hover:text-red-400 transition"><i class="fab fa-facebook"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const episodes = [
+      // Special OPS
+      { 
+        title: "The Parliament Attack", 
+        year: 2020,
+        video: "https://cdn30091.lop3sdi5dq5.com:443/stream2/i-cdn-0/a5b5ae66248be0039515bda55fa1d488/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT2p1VKlWTEJFaPR0a4pVbRd3TUVUMapmSt9EVrBzTUVkMZRFZt5EVJVjTtVUP:1748480434:89.116.30.152:ea28765810e8e062b8ea50e6fecd7c4525e685fb35b774c1281b08c2440cff3e/./1080/index.m3u8", 
+        image: "https://img10.hotstar.com/image/upload/f_auto/sources/r1/cms/prod/4137/654137-h",
+        runtime: "45 min",
+        rating: "8.5/10",
+        description: "After the 2001 Parliament attack, RAW officer Himmat Singh becomes convinced that one mastermind is behind major attacks in India.",
+        director: "Neeraj Pandey",
+        cast: "Kay Kay Menon, Karan Tacker, Aftab Shivdasani"
+      },
+      { 
+        title: "The Istanbul Connection", 
+        year: 2020,
+        video: "https://cdn30091.lop3sdi5dq5.com:443/stream2/i-cdn-0/a5b5ae66248be0039515bda55fa1d488/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT2l1VFBzTEVVeNRkWq5kaK1mT6VUNNpmRt5kMJNjTUlVePR1ay80VZFTTEFVP:1748480586:89.116.30.152:729e84504625b527c1718ff59795d0561ba090d3a3ce874aea54399c281e0ff5/./1080/index.m3u8", 
+        image: "https://img10.hotstar.com/image/upload/f_auto/sources/r1/cms/prod/5428/655428-h",
+        runtime: "45 min",
+        rating: "8.7/10",
+        description: "Himmat Singh follows a lead to Istanbul where he believes the mastermind might be operating from.",
+        director: "Neeraj Pandey",
+        cast: "Kay Kay Menon, Karan Tacker, Vipul Gupta"
+      },
+      { 
+        title: "The Sleeper Cell", 
+        year: 2020,
+        video: "https://cdn30091.lop3sdi5dq5.com:443/stream2/i-cdn-0/a5b5ae66248be0039515bda55fa1d488/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT25kajNTWtVFNZJTTw8EVRhXTyYFbadlStpFRBNTWqp1aNdURxk1VJVjWH1UP:1748480620:89.116.30.152:9fe981d72813ed75e71bce2e3f7c493751039d8298007ceab7b2351125fe3ea6/./1080/index.m3u8", 
+        image: "https://img10.hotstar.com/image/upload/f_auto/sources/r1/cms/prod/5429/655429-h",
+        runtime: "45 min",
+        rating: "8.9/10",
+        description: "Himmat's team uncovers a sleeper cell in Delhi while he continues his investigation abroad.",
+        director: "Neeraj Pandey",
+        cast: "Kay Kay Menon, Vinay Pathak, Saiyami Kher"
+      },
+      { 
+        title: "The Double Agent", 
+        year: 2020,
+        video: "https://cdn30091.lop3sdi5dq5.com:443/stream2/i-cdn-0/a5b5ae66248be0039515bda55fa1d488/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT21keoxmWqNWNNJTW3lVbW1mTHVkeNdkUr90VKpmTX5kaZRVW4p1RRBjWqFVP:1748480652:89.116.30.152:a076d18c6fe472e93a50e0c73e07d1275292ab2532e898b1d43b2fafd2a95952/./1080/index.m3u8", 
+        image: "https://img10.hotstar.com/image/upload/f_auto/sources/r1/cms/prod/4143/654143-h",
+        runtime: "45 min",
+        rating: "9.0/10",
+        description: "The team discovers a possible mole within their ranks as the operation becomes more dangerous.",
+        director: "Neeraj Pandey",
+        cast: "Kay Kay Menon, Karan Tacker, Muzammil Ibrahim"
+      },
+      { 
+        title: "The Kashmir Link", 
+        year: 2020,
+        video: "https://cdn30091.lop3sdi5dq5.com:443/stream2/i-cdn-0/a5b5ae66248be0039515bda55fa1d488/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT2lleVVjWH50aadlVr5ERFdnTqZFbadkWs50VO1WTX1UMZRlQsllaBVjWtlVP:1748480688:89.116.30.152:ff1af5c9d0958d581d698b211da6b1a04c87187acb26af5dc69afae6ccea7ed8/./1080/index.m3u8", 
+        image: "https://img10.hotstar.com/image/upload/f_auto/sources/r1/cms/prod/4147/654147-h",
+        runtime: "45 min",
+        rating: "9.1/10",
+        description: "A lead takes the team to Kashmir where they uncover connections to previous attacks.",
+        director: "Neeraj Pandey",
+        cast: "Kay Kay Menon, Aftab Shivdasani, Saiyami Kher"
+      },
+      { 
+        title: "The Dubai Operation", 
+        year: 2020,
+        video: "https://cdn30091.lop3sdi5dq5.com:443/stream2/i-cdn-0/a5b5ae66248be0039515bda55fa1d488/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT21keJNjTE1kMZR1Yz0UbZJTWUdGNadVU3p1VNFjWqVUNa1mWr9EVFBjWqVUP:1748480714:89.116.30.152:2b27320013dc4824928f01c317906fa817a565465850f10b424dfed8aedb5918/./1080/index.m3u8", 
+        image: "https://img10.hotstar.com/image/upload/f_auto/sources/r1/cms/prod/4149/654149-h",
+        runtime: "45 min",
+        rating: "9.2/10",
+        description: "The team tracks financial transactions to Dubai, getting closer to identifying the mastermind.",
+        director: "Neeraj Pandey",
+        cast: "Kay Kay Menon, Karan Tacker, Vinay Pathak"
+      },
+      { 
+        title: "The Betrayal", 
+        year: 2020,
+        video: "https://cdn30091.lop3sdi5dq5.com:443/stream2/i-cdn-0/a5b5ae66248be0039515bda55fa1d488/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT21UbJBTTH5EaNRFZpl1VJBjTt5EaOp3a5llaFFTTEJ0aO1mSt1ERFhnTqlUP:1748480738:89.116.30.152:0f9937a00a24af0dfd2b49f6b06f5428113ec737a12f9e3fe2108bab069d6296/./1080/index.m3u8", 
+        image: "https://img10.hotstar.com/image/upload/f_auto/sources/r1/cms/prod/4149/654149-h",
+        runtime: "45 min",
+        rating: "9.3/10",
+        description: "A shocking betrayal puts the entire operation at risk as the team gets closer to the truth.",
+        director: "Neeraj Pandey",
+        cast: "Kay Kay Menon, Muzammil Ibrahim, Vipul Gupta"
+      },
+      { 
+        title: "The Final Showdown", 
+        year: 2020,
+        video: "https://cdn30091.lop3sdi5dq5.com:443/stream2/i-cdn-0/a5b5ae66248be0039515bda55fa1d488/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT21EVstWW6VVNN1WU0kFVWtWWtVUMap2Yy0kektmTqJlaadlRs90VJpnTX1UP:1748480764:89.116.30.152:1c5dc1a83ac8022d6fb2e5aec67b3ffe2f9516f1db4fc29bb382e1d7482a9716/./1080/index.m3u8", 
+        image: "https://img10.hotstar.com/image/upload/f_auto/sources/r1/cms/prod/4885/654885-h",
+        runtime: "45 min",
+        rating: "9.5/10",
+        description: "In the explosive season finale, Himmat Singh finally comes face to face with the mastermind behind all the attacks.",
+        director: "Neeraj Pandey",
+        cast: "Kay Kay Menon, Karan Tacker, Aftab Shivdasani"
+      },
+      // Special Ops 1.5: The Himmat Story
+      { 
+        title: "Aandhi", 
+        year: 2021,
+        video: "https://cdn30091.lop3sdi5dq5.com:443/stream2/i-cdn-0/a5b5ae66248be0039515bda55fa1d488/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT2llaCtWW61EMNRVWwolaJBjWXpVaPRVSz0kaBNjTXZEbaRlSo5ERatmWHFVP:1748481039:89.116.30.152:0908a40d383212377b7b4af7f667b0943d64113b668e5673a9b984d018e03f40/./1080/index.m3u8", 
+        image: "https://img10.hotstar.com/image/upload/f_auto/sources/r1/cms/prod/4654/1738651044654-h",
+        runtime: "45 min",
+        rating: "9.1/10",
+        description: "Abbas Sheikh is summoned by auditors to evaluate Himmat Singh's career as his retirement draws near. A young field agent Himmat's story unveils the Post-2001 Parliament attack.",
+        director: "Neeraj Pandey",
+        cast: "Kay Kay Menon, Aftab Shivdasani, Saiyami Kher"
+      },
+      { 
+        title: "Mere Apne", 
+        year: 2021,
+        video: "https://cdn30091.lop3sdi5dq5.com:443/stream2/i-cdn-0/a5b5ae66248be0039515bda55fa1d488/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT25EVKxmWUpEbPRVR4pFVo1WWXpkaNdUSz0kenpnTXZVaPRUSz00ROlWTykVP:1748481065:89.116.30.152:26b4ae11bd4b3855ab0b9368c3eb6c0c142b7bd61a4590bbe512e4a8a8a34d9f/./1080/index.m3u8", 
+        image: "https://img10.hotstar.com/image/upload/f_auto/sources/r1/cms/prod/6173/1076173-h-df241cbf65d2",
+        runtime: "45 min",
+        rating: "9.2/10",
+        description: "As some of India's top officials are honey-trapped, R&AW releases top-secret data is compromised. While Himmat and Vijay narrow the suspects, an ex-R&AW officer is on the run.",
+        director: "Neeraj Pandey",
+        cast: "Kay Kay Menon, Karan Tacker, Vinay Pathak"
+      },
+      { 
+        title: "Lekin", 
+        year: 2021,
+        video: "https://cdn30091.lop3sdi5dq5.com:443/stream2/i-cdn-0/a5b5ae66248be0039515bda55fa1d488/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT25ERJdXTt5UaOpXU59ERNRjT6JVbN1WUx80RGpWTEd2dadlSo5kaJRTTy0UP:1748481085:89.116.30.152:3f00164e98d3d36b5196557cef5254c2a89cc4db068e8cd17c06d76907fbbcba/./1080/index.m3u8", 
+        image: "https://img10.hotstar.com/image/upload/f_auto/sources/r1/cms/prod/6173/1076173-h-df241cbf65d2",
+        runtime: "45 min",
+        rating: "9.3/10",
+        description: "A cat-and-mouse chase begins between Maninder, Himmat and Vijay to recover top-secret national data. However, Himmat is in for a surprise.",
+        director: "Neeraj Pandey",
+        cast: "Kay Kay Menon, Muzammil Ibrahim, Vipul Gupta"
+      },
+      { 
+        title: "Ijazat", 
+        year: 2021,
+        video: "https://cdn30091.lop3sdi5dq5.com:443/stream2/i-cdn-0/a5b5ae66248be0039515bda55fa1d488/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT2plaZNTTHlUeZpnSqpFRnBjWqFUNZ1mUq90VFh3TUVVMORVS51kMJFjWXVUP:1748481106:89.116.30.152:bc41a70fd61c37505c20da12741870ecce38e40fadd4b93f2c069ac6936bc1c3/./1080/index.m3u8", 
+        image: "https://img10.hotstar.com/image/upload/f_auto/sources/r1/cms/prod/6175/1076175-h-7669d02df97a",
+        runtime: "45 min",
+        rating: "9.5/10",
+        description: "Moments before the data reaches the highest bidder, Himmat faces the test of his life. Abbas's inquiry ends with his report on Himmat Singh. Are the auditors convinced?",
+        director: "Neeraj Pandey",
+        cast: "Kay Kay Menon, Karan Tacker, Aftab Shivdasani"
+      },
+    ];
+
+    const container = document.getElementById('episodes');
+    const playbackModal = document.getElementById('playback-modal');
+    const closeModal = document.getElementById('close-modal');
+    const modalVideo = document.getElementById('modal-video');
+    const modalTitle = document.getElementById('modal-title');
+    const modalDescription = document.getElementById('modal-description');
+    const episodeNum = document.getElementById('episode-num');
+    const episodeRuntime = document.getElementById('episode-runtime');
+    const episodeRating = document.getElementById('episode-rating');
+    const episodeCast = document.getElementById('episode-cast');
+    const playButton = document.getElementById('play-button');
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    let currentEpisode = null;
+
+    function openModal(episode, episodeNumber) {
+      currentEpisode = episode;
+      modalTitle.textContent = episode.title;
+      modalDescription.textContent = episode.description;
+      episodeNum.textContent = episodeNumber;
+      episodeRuntime.textContent = episode.runtime;
+      episodeRating.textContent = episode.rating;
+      episodeCast.textContent = episode.cast;
+      
+      // Set video source
+      modalVideo.src = episode.video;
+      modalVideo.poster = episode.image;
+      
+      playbackModal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      document.addEventListener('keydown', handleKeyPress);
+    }
+
+    function closeModalHandler() {
+      playbackModal.classList.add('hidden');
+      modalVideo.pause();
+      modalVideo.currentTime = 0;
+      document.body.style.overflow = '';
+      document.removeEventListener('keydown', handleKeyPress);
+    }
+
+    function handleKeyPress(e) {
+      if (e.key === 'Escape') {
+        closeModalHandler();
+      }
+    }
+
+    function toggleMobileMenu() {
+      mobileMenu.classList.toggle('hidden');
+    }
+
+    // Event listeners
+    closeModal.addEventListener('click', closeModalHandler);
+    playButton.addEventListener('click', () => {
+      modalVideo.play();
+      playButton.innerHTML = '<i class="fas fa-pause mr-2"></i> Pause';
+    });
+    mobileMenuButton.addEventListener('click', toggleMobileMenu);
+
+    // Video event listeners
+    modalVideo.addEventListener('play', () => {
+      playButton.innerHTML = '<i class="fas fa-pause mr-2"></i> Pause';
+    });
+
+    modalVideo.addEventListener('pause', () => {
+      playButton.innerHTML = '<i class="fas fa-play mr-2"></i> Play';
+    });
+
+    // Render episode cards
+    episodes.forEach((episode, index) => {
+      const card = document.createElement('div');
+      card.className = 'episode-card cursor-pointer bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition transform hover:-translate-y-1 relative';
+      card.innerHTML = `
+        <div class="relative">
+          <img src="${episode.image}" alt="${episode.title}" class="w-full h-48 md:h-56 object-cover">
+          <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center opacity-0 hover:opacity-100 transition">
+            <div class="play-icon absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-red-600 bg-opacity-90 rounded-full w-12 h-12 flex items-center justify-center opacity-0 transition">
+              <i class="fas fa-play text-white"></i>
+            </div>
+          </div>
+          <span class="absolute top-2 right-2 bg-black bg-opacity-70 text-white text-xs px-2 py-1 rounded">${episode.runtime}</span>
+        </div>
+        <div class="p-4">
+          <div class="flex justify-between items-start mb-1">
+            <h2 class="text-lg font-semibold">${episode.title}</h2>
+            <span class="text-red-500 text-sm">${episode.rating}</span>
+          </div>
+          <p class="text-sm text-gray-400">Episode ${index + 1}</p>
+        </div>
+      `;
+      card.addEventListener('click', () => {
+        openModal(episode, index + 1);
+      });
+      container.appendChild(card);
+    });
+
+    // Close modal when clicking outside
+    playbackModal.addEventListener('click', (e) => {
+      if (e.target === playbackModal) {
+        closeModalHandler();
+      }
+    });
+  </script>
+</body>
+</html>
