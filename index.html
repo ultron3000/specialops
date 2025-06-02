@@ -5,30 +5,72 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Special OPS & 1.5</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     body {
       font-family: 'Poppins', sans-serif;
       background: linear-gradient(to bottom, #0f172a, #1e293b);
       color: white;
     }
+    .video-header {
+      position: relative;
+      width: 100%;
+      height: 0;
+      padding-bottom: 42.5%; /* 16:9 aspect ratio */
+      overflow: hidden;
+    }
+    .video-header video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .video-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      z-index: 1;
+    }
+    @media (max-width: 768px) {
+      .video-header {
+        padding-bottom: 56.25%; /* 16:9 aspect ratio for mobile */
+      }
+    }
   </style>
 </head>
 <body>
-  <header class="w-full h-64 bg-cover bg-center flex items-center justify-center" style="background-image: url('https://img10.hotstar.com/image/upload/f_auto/sources/r1/cms/prod/4137/654137-h');">
-    <h1 class="text-3xl md:text-5xl font-bold bg-black bg-opacity-60 px-6 py-2 rounded">Special OPS Series</h1>
+  <header class="video-header">
+    <video autoplay muted loop playsinline>
+      <source src="https://imdb-video.media-imdb.com/vi2726477337/1434659607842-pgv4ql-1585746150155.mp4?Expires=1748969396&Signature=kpOICXLiJ3ybHvL4BYpSUrR8jYrPYGgenmpqakf7AgTzlEBP7tlx6z~jvdDDwNuhip629X8YVdoTYcjVT5QqKlAPWn3-ADSA1rDzdTwyMVXcTNvSRCI9EMGX1ED0-CbMnP98MU9UMQPqUulLfJME2q5Z6pH~XaMy839yBRBWu8xPkbTIKPskPMHK9ChbRGLQSs5E7MLWfvuhkZOEjCts0hCI5bw4z2gF1utiJymMCVFvd6fMs4~HM3J83cHIuJBonINy6FigPknlmo4Z2R~7cs7J5hc9H~7fd31vMyDedJBf7X4B9p4KoYW40ut59CmNL-U3xpmIKjglWodyjrOAVg__&Key-Pair-Id=APKAIFLZBVQZ24NQH3KA" type="video/mp4">
+      <!-- Fallback image if video doesn't load -->
+      <img src="https://img10.hotstar.com/image/upload/f_auto/sources/r1/cms/prod/4137/654137-h" alt="Special OPS Banner" style="width: 100%; height: auto;">
+    </video>
+    <div class="video-overlay">
+      <h1 class="text-3xl md:text-5xl font-bold px-6 py-2 rounded mb-4">Special OPS Series</h1>
+      <div class="flex gap-4">
+        <button onclick="loadSeason('season1')" class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded transition duration-300 transform hover:scale-105">Special OPS</button>
+        <button onclick="loadSeason('season1_5')" class="bg-green-600 hover:bg-green-700 px-4 py-2 rounded transition duration-300 transform hover:scale-105">OPS 1.5: Himmat Story</button>
+      </div>
+    </div>
   </header>
 
   <main class="container mx-auto px-4 py-8">
-    <div class="mb-4 flex gap-4">
-      <button onclick="loadSeason('season1')" class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded">Special OPS</button>
-      <button onclick="loadSeason('season1_5')" class="bg-green-600 hover:bg-green-700 px-4 py-2 rounded">OPS 1.5: Himmat Story</button>
-    </div>
     <div id="episode-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
   </main>
 
   <div id="modal" class="hidden fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50">
     <div class="bg-gray-800 p-4 rounded-lg w-full max-w-4xl relative">
-      <button onclick="closeModal()" class="absolute top-2 right-2 text-white text-xl">&times;</button>
+      <button onclick="closeModal()" class="absolute top-2 right-2 text-white text-xl bg-gray-700 hover:bg-gray-600 rounded-full w-8 h-8 flex items-center justify-center">&times;</button>
       <video id="modal-video" class="w-full rounded" controls></video>
     </div>
   </div>
@@ -40,7 +82,7 @@
         { title: "The Istanbul Connection", video: "https://cdn4505.lada357janet.com:443/stream2/i-cdn-0/a5b5ae66248be0039515bda55fa1d488/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT2l1VFBzTEVVeNRkWq5kaK1mT6VUNNpmRt5kMJNjTUlVePR1ay80VZFTTEFVP:1748885103:89.116.30.152:729e84504625b527c1718ff59795d0561ba090d3a3ce874aea54399c281e0ff5/./1080/index.m3u8", image: "https://img10.hotstar.com/image/upload/f_auto/sources/r1/cms/prod/5428/655428-h" },
         { title: "The Sleeper Cell", video: "https://cdn4505.lada357janet.com:443/stream2/i-cdn-0/a5b5ae66248be0039515bda55fa1d488/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT25kajNTWtVFNZJTTw8EVRhXTyYFbadlStpFRBNTWqp1aNdURxk1VJVjWH1UP:1748885136:89.116.30.152:9fe981d72813ed75e71bce2e3f7c493751039d8298007ceab7b2351125fe3ea6/./1080/index.m3u8", image: "https://img10.hotstar.com/image/upload/f_auto/sources/r1/cms/prod/5429/655429-h" },
         { title: "The Double Agent", video: "https://cdn4505.lada357janet.com:443/stream2/i-cdn-0/a5b5ae66248be0039515bda55fa1d488/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT21keoxmWqNWNNJTW3lVbW1mTHVkeNdkUr90VKpmTX5kaZRVW4p1RRBjWqFVP:1748885169:89.116.30.152:a076d18c6fe472e93a50e0c73e07d1275292ab2532e898b1d43b2fafd2a95952/./1080/index.m3u8", image: "https://img10.hotstar.com/image/upload/f_auto/sources/r1/cms/prod/4143/654143-h" },
-        { title: "The Kashmir Link", video: "https://cdn4505.lada357janet.com:443/stream2/i-cdn-0/a5b5ae66248be0039515bda55fa1d488/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT2lleVVjWH50aadlVr5ERFdnTqZFbadkWs50VO1WTX1UMZRlQsllaBVjWtlVP:1748885195:89.116.30.152:ff1af5c9d0958d581d698b211da6b1a04c87187acb26af5dc69afae6ccea7ed8/./1080/index.m3u8", image: "https://img10.hotstar.com/image/upload/f_auto/sources/r1/cms/prod/4147/654147-h" },
+        { title: "The Kashmir Link", video: "https://cdn4505.lada357janet.com:443/stream2/i-cdn-0/a5b5ae66248be0039515bda55fa1d488/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT21leVVjWH50aadlVr5ERFdnTqZFbadkWs50VO1WTX1UMZRlQsllaBVjWtlVP:1748885195:89.116.30.152:ff1af5c9d0958d581d698b211da6b1a04c87187acb26af5dc69afae6ccea7ed8/./1080/index.m3u8", image: "https://img10.hotstar.com/image/upload/f_auto/sources/r1/cms/prod/4147/654147-h" },
         { title: "The Dubai Operation", video: "https://cdn4505.lada357janet.com:443/stream2/i-cdn-0/a5b5ae66248be0039515bda55fa1d488/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT21keJNjTE1kMZR1Yz0UbZJTWUdGNadVU3p1VNFjWqVUNa1mWr9EVFBjWqVUP:1748885222:89.116.30.152:2b27320013dc4824928f01c317906fa817a565465850f10b424dfed8aedb5918/./1080/index.m3u8", image: "https://img10.hotstar.com/image/upload/f_auto/sources/r1/cms/prod/4149/654149-h" },
         { title: "The Betrayal", video: "https://cdn4505.lada357janet.com:443/stream2/i-cdn-0/a5b5ae66248be0039515bda55fa1d488/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT21UbJBTTH5EaNRFZpl1VJBjTt5EaOp3a5llaFFTTEJ0aO1mSt1ERFhnTqlUP:1748885246:89.116.30.152:0f9937a00a24af0dfd2b49f6b06f5428113ec737a12f9e3fe2108bab069d6296/./1080/index.m3u8", image: "https://img10.hotstar.com/image/upload/f_auto/sources/r1/cms/prod/4744/654744-h" },
         { title: "The Final Showdown", video: "https://cdn4505.lada357janet.com:443/stream2/i-cdn-0/a5b5ae66248be0039515bda55fa1d488/MJTMsp1RshGTygnMNRUR2N2MSlnWXZEdMNDZzQWe5MDZzMmdZJTO1R2RWVHZDljekhkSsl1VwYnWtx2cihVT21EVstWW6VVNN1WU0kFVWtWWtVUMap2Yy0kektmTqJlaadlRs90VJpnTX1UP:1748885275:89.116.30.152:1c5dc1a83ac8022d6fb2e5aec67b3ffe2f9516f1db4fc29bb382e1d7482a9716/./1080/index.m3u8", image: "https://img10.hotstar.com/image/upload/f_auto/sources/r1/cms/prod/4885/654885-h" }
@@ -53,6 +95,19 @@
       ]
     };
 
+    // Initialize video header
+    document.addEventListener('DOMContentLoaded', function() {
+      const video = document.querySelector('.video-header video');
+      video.play().catch(e => {
+        console.log("Autoplay prevented, showing fallback image");
+        const fallbackImg = document.createElement('img');
+        fallbackImg.src = "https://img10.hotstar.com/image/upload/f_auto/sources/r1/cms/prod/4137/654137-h";
+        fallbackImg.alt = "Special OPS Banner";
+        fallbackImg.className = "w-full h-full object-cover";
+        document.querySelector('.video-header').appendChild(fallbackImg);
+      });
+    });
+
     function isStreamLink(url) {
       return url.endsWith('.m3u8') || url.endsWith('.txt');
     }
@@ -62,12 +117,20 @@
       grid.innerHTML = '';
       episodes[season].forEach((ep) => {
         const card = document.createElement('div');
-        card.className = 'bg-gray-800 rounded overflow-hidden shadow-md';
+        card.className = 'bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-1';
         card.innerHTML = `
-          <img src="${ep.image}" alt="${ep.title}" class="w-full h-48 object-cover">
+          <div class="relative">
+            <img src="${ep.image}" alt="${ep.title}" class="w-full h-48 object-cover">
+            <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center opacity-0 hover:opacity-100 transition duration-300">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+          </div>
           <div class="p-4">
             <h2 class="text-lg font-semibold mb-2">${ep.title}</h2>
-            <button class="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">Watch</button>
+            <button class="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded transition duration-300">Watch</button>
           </div>
         `;
         card.querySelector('button').onclick = () => {
@@ -78,6 +141,7 @@
             video.src = ep.video;
             video.poster = ep.image;
             document.getElementById('modal').classList.remove('hidden');
+            video.play();
           }
         };
         grid.appendChild(card);
